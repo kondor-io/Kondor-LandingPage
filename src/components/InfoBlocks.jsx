@@ -4,15 +4,15 @@ import { GripVertical } from 'lucide-react'
 const blocks = [
   {
     title: 'Quiénes somos',
-    body: 'Una fábrica de software de cuatro personas diseñada para construir con criterio, sin atajos y con ingeniería real.',
+    body: 'Una arquitectura de pensamiento digital diseñada para la anticipación absoluta.',
   },
   {
     title: 'Qué hacemos',
-    body: 'Creamos sistemas que dan a organizaciones medianas el nivel tecnológico y operativo de una gran corporación.',
+    body: 'Decodificamos la complejidad para devolver simplicidad operativa y autonomía total.',
   },
   {
     title: 'Qué obtienes',
-    body: 'Sistemas que evolucionan, procesos que escalan y una ventaja competitiva construida desde la ingeniería.',
+    body: 'Sistemas que aprenden y procesos que se superan a sí mismos por diseño.',
   },
 ]
 
@@ -47,16 +47,14 @@ export default function InfoBlocks() {
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
           className="group flex items-start gap-3 cursor-default"
         >
-          <div className="mt-1 text-gray-300 group-hover:text-brand-accent transition-colors duration-200 shrink-0">
+          <div className="mt-1 text-white/35 group-hover:text-brand-accent transition-colors duration-200 shrink-0">
             <GripVertical size={16} />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-brand-dark mb-1 group-hover:text-brand-accent transition-colors duration-200">
+            <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-brand-accent transition-colors duration-200">
               {block.title}
             </h3>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              {block.body}
-            </p>
+            <p className="text-sm text-white/55 leading-relaxed">{block.body}</p>
           </div>
         </motion.div>
       ))}

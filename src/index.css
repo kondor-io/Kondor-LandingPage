@@ -8,7 +8,15 @@
   }
 
   body {
-    @apply font-sans antialiased bg-white text-brand-dark;
+    @apply font-sans antialiased min-h-screen text-white;
+    background-color: #1e1e24;
+    background-image: radial-gradient(
+      ellipse at 72% 65%,
+      rgba(237, 73, 47, 0.92) 0%,
+      rgba(180, 45, 22, 0.55) 28%,
+      rgba(30, 30, 36, 1) 58%
+    );
+    background-attachment: fixed;
   }
 
   * {
@@ -19,5 +27,35 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /**
+   * Difumina los 4 bordes de la píldora nav con estilo Apple:
+   * - Dos gradientes lineales en intersección: uno H, uno V
+   * - El vidrio se desvanece sin cortar el texto (que vive en la zona central opaca)
+   */
+  .mask-nav-pill-feather {
+    /* Gradiente horizontal: fade izq/der */
+    --mh: linear-gradient(to right,
+      transparent 0%,
+      black 14%,
+      black 86%,
+      transparent 100%
+    );
+    /* Gradiente vertical: fade top/bottom (más % porque el pill es corto en altura) */
+    --mv: linear-gradient(to bottom,
+      transparent 0%,
+      black 30%,
+      black 70%,
+      transparent 100%
+    );
+
+    mask-image: var(--mh), var(--mv);
+    mask-composite: intersect;
+    mask-repeat: no-repeat;
+
+    -webkit-mask-image: var(--mh), var(--mv);
+    -webkit-mask-composite: source-in;
+    -webkit-mask-repeat: no-repeat;
   }
 }

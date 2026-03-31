@@ -15,6 +15,10 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
+      boxShadow: {
+        glow: '0 0 80px -20px rgba(237, 73, 47, 0.55)',
+        panel: '0 24px 80px -24px rgba(0, 0, 0, 0.45)',
+      },
     },
   },
   plugins: [],

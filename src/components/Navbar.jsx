@@ -24,38 +24,52 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100'
-          : 'bg-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300
+        bg-[#1E1E24]/75 backdrop-blur-xl shadow-panel border-b border-white/10"
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
-        {/* Logo */}
-        <a href="#inicio" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 rounded-md bg-brand-dark flex items-center justify-center">
-            <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4">
-              <path
-                d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
-                fill="#ED492F"
-                stroke="#ED492F"
-                strokeWidth="0.5"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <span className="text-brand-dark font-bold text-lg tracking-tight">
-            Kondor
-          </span>
+      <nav className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16 lg:h-[4.25rem]">
+        <a href="#inicio" className="group shrink-0 py-1 transition-opacity hover:opacity-95">
+          <img
+            src="/kondor.png"
+            alt="Kondor"
+            className="h-7 md:h-8 w-auto max-w-[11rem] object-contain object-left [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.35))]"
+          />
         </a>
 
-        {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        {/* ── Nav links — glass ellipse + segment dividers; extremos difuminados con la navbar ── */}
+        {/*
+          ── Nav links: píldora liquid-glass Apple ──────────────────────────────
+          px-10 en la ul  → añade vidrio "de sobra" a izq/der del texto.
+          La máscara mask-nav-pill-feather desvanece los 4 bordes; el texto
+          queda en la zona central 100% opaca. Sin divisores.
+          ─────────────────────────────────────────────────────────────────────── */}
+        <ul
+          className={`hidden md:flex relative items-stretch overflow-hidden rounded-full
+            px-24
+            mask-nav-pill-feather
+            backdrop-blur-2xl
+            border-y border-white/[0.13]
+            shadow-[inset_0_1px_0_rgba(255,255,255,0.26),inset_0_-1px_0_rgba(0,0,0,0.07),0_10px_36px_rgba(0,0,0,0.14)]
+            bg-[#1E1E24]/40`}
+        >
+          {/* Specular rim continuo (afectado por máscara → también se desvanece) */}
+          <span
+            className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px
+              bg-gradient-to-r from-transparent via-white/50 to-transparent"
+            aria-hidden
+          />
+          {/* Sheen interior: brillo en corona, sombra en suelo */}
+          <span
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.09] via-transparent to-black/[0.06]"
+            aria-hidden
+          />
           {navLinks.map((link) => (
-            <li key={link.href}>
+            <li key={link.href} className="relative z-[1] flex">
               <a
                 href={link.href}
-                className="text-sm font-medium text-gray-500 hover:text-brand-dark transition-colors duration-200"
+                className="flex items-center justify-center text-sm font-medium text-white/80 hover:text-white
+                  px-5 py-2.5 min-h-[2.75rem] transition-[background-color,color] duration-200
+                  hover:bg-white/[0.11] active:bg-white/[0.06]"
               >
                 {link.label}
               </a>
@@ -63,21 +77,31 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
+        {/* ── CTA — liquid glass with accent tint ── */}
         <div className="hidden md:flex items-center gap-3">
           <motion.a
             href="#contacto"
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ scale: 1.03, filter: 'brightness(1.12)' }}
             whileTap={{ scale: 0.97 }}
-            className="bg-brand-accent text-white text-sm font-semibold px-5 py-2 rounded-lg hover:bg-red-600 transition-colors duration-200"
+            className="relative overflow-hidden text-sm font-semibold px-5 py-2.5 rounded-2xl
+              text-white
+              bg-brand-accent/[0.82] backdrop-blur-xl
+              border border-t-white/[0.35] border-brand-accent/[0.55]
+              shadow-[inset_0_1px_0_rgba(255,255,255,0.38),0_4px_24px_rgba(237,73,47,0.38)]
+              transition-all duration-200"
           >
-            Hablar con el equipo
+            {/* Top specular edge */}
+            <span className="pointer-events-none absolute inset-x-0 top-0 h-px
+              bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+            {/* Inner glass gradient sheen */}
+            <span className="pointer-events-none absolute inset-0
+              bg-gradient-to-b from-white/[0.18] via-transparent to-black/[0.08]" />
+            <span className="relative">Hablar con el equipo</span>
           </motion.a>
         </div>
 
-        {/* Mobile toggle */}
         <button
-          className="md:hidden text-brand-dark"
+          className="md:hidden text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -85,7 +109,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -93,15 +116,15 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
+            className="md:hidden overflow-hidden border-t border-white/10 bg-[#1E1E24]/92 backdrop-blur-xl"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
+            <div className="px-6 py-5 flex flex-col gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-sm font-medium text-gray-600 hover:text-brand-dark transition-colors"
+                  className="text-sm font-medium text-white/80 hover:text-white py-2.5 transition-colors"
                 >
                   {link.label}
                 </a>
@@ -109,9 +132,16 @@ export default function Navbar() {
               <a
                 href="#contacto"
                 onClick={() => setMenuOpen(false)}
-                className="bg-brand-accent text-white text-sm font-semibold px-5 py-2.5 rounded-lg text-center"
+                className="relative overflow-hidden mt-2 text-sm font-semibold px-5 py-3 rounded-2xl text-center
+                  text-white bg-brand-accent/[0.85] backdrop-blur-xl
+                  border border-t-white/[0.30] border-brand-accent/50
+                  shadow-[inset_0_1px_0_rgba(255,255,255,0.32),0_4px_20px_rgba(237,73,47,0.30)]"
               >
-                Hablar con el equipo
+                <span className="pointer-events-none absolute inset-x-0 top-0 h-px
+                  bg-gradient-to-r from-transparent via-white/55 to-transparent" />
+                <span className="pointer-events-none absolute inset-0
+                  bg-gradient-to-b from-white/[0.15] via-transparent to-black/[0.06]" />
+                <span className="relative">Hablar con el equipo</span>
               </a>
             </div>
           </motion.div>
