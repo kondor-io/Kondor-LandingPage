@@ -3,16 +3,22 @@ import { Plane, Sparkles } from 'lucide-react'
 
 const clients = [
   {
-    name: 'MAPS',
-    logoSrc: '/portfolio/MaxiColor.png',
+    name: 'Maps organización',
+    logoSrc: '/portfolio/maps.png',
     logoAlt: 'Logo MAPS',
     tagline: 'Partnership en plataforma',
   },
   {
-    name: 'La Federal',
+    name: 'Club de campo La Federala',
     logoSrc: '/portfolio/IconoLF.ico',
     logoAlt: 'Logo La Federal',
     tagline: 'Comercialización y control',
+  },
+  {
+    name: 'Club For Ever',
+    logoSrc: '/portfolio/forever.png',
+    logoAlt: 'Logo For Ever',
+    tagline: 'Pagos y gestion',
   },
 ]
 
@@ -48,11 +54,11 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 }
 
-function LogoTile({ name, logoSrc, logoAlt, tagline }) {
+function LogoTile({ name, logoSrc, logoAlt, tagline, className = '' }) {
   return (
     <motion.article
       variants={fadeUp}
-      className="group relative flex min-h-[9.5rem] flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.045] px-6 py-10 transition-all duration-300 hover:border-brand-accent/35 hover:bg-brand-accent/[0.06] hover:shadow-[0_0_48px_-12px_rgba(237,73,47,0.35)] sm:min-h-[11rem]"
+      className={`group relative flex min-h-[9.5rem] flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.045] px-6 py-10 transition-all duration-300 hover:border-brand-accent/35 hover:bg-brand-accent/[0.06] hover:shadow-[0_0_48px_-12px_rgba(237,73,47,0.35)] sm:min-h-[11rem] ${className}`}
     >
       <div
         className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -73,8 +79,8 @@ function LogoTile({ name, logoSrc, logoAlt, tagline }) {
           />
         </div>
         <p className="text-center text-[11px] font-medium tracking-wide text-white/38">{tagline}</p>
+        <p className="text-center text-sm font-semibold tracking-tight text-white">{name}</p>
       </div>
-      <span className="sr-only">{name}</span>
     </motion.article>
   )
 }
@@ -142,8 +148,12 @@ export default function PortfolioSection() {
           viewport={{ once: true, margin: '-40px' }}
           className="mb-14 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:mb-16"
         >
-          {clients.map((c) => (
-            <LogoTile key={c.name} {...c} />
+          {clients.map((c, idx) => (
+            <LogoTile
+              key={c.name}
+              {...c}
+              className={idx === 2 ? 'sm:col-span-2 sm:mx-auto sm:w-[min(100%,26rem)]' : ''}
+            />
           ))}
         </motion.div>
 
