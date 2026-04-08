@@ -175,15 +175,18 @@ function ClientsCarousel() {
     return () => clearInterval(id)
   }, [stepPx])
 
-  /* Build the 5-card buffer */
-  const cards = Array.from({ length: BUFFER }, (_, i) => ({
-    ...clients[(baseIdx + i) % N],
-  }))
+  /* Build the 5-card buffer with absoluteIdx to uniquely identify each physical card slot in the stream */
+  const cards = Array.from({ length: BUFFER }, (_, i) => {
+    const absoluteIdx = baseIdx + i;
+    return {
+      ...clients[absoluteIdx % N],
+      absoluteIdx, // Unique key guarantees stable DOM nodes during reset
+    }
+  })
 
-  // Always highlight the card at CENTER slot.
-  // The track slides physically; after the transition the baseIdx advances
-  // so the new card lands exactly at CENTER — no flash, no pre-jump.
-  const highlightSlot = CENTER
+  // Start lighting up the incoming card exactly as it begins its journey to the center.
+  // Simultaneous dimming of old center + brightening of new center = stationary spotlight effect.
+  const highlightSlot = sliding ? CENTER + 1 : CENTER
 
   const cardW = stepPx ? stepPx - GAP : 0
 
@@ -205,7 +208,7 @@ function ClientsCarousel() {
       >
         {cards.map((card, i) => (
           <div
-            key={i}
+            key={card.absoluteIdx}
             style={{ flexShrink: 0, width: cardW || '33.333%' }}
           >
             <ClientCard {...card} isCenter={i === highlightSlot} />
