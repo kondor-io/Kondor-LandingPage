@@ -30,17 +30,17 @@ function TikTokIcon({ size = 18 }) {
 const socials = [
   {
     label: 'Instagram',
-    href:  'https://instagram.com',
+    href:  'https://www.instagram.com/kondor.io/',
     Icon:  Instagram,
   },
   {
     label: 'LinkedIn',
-    href:  'https://linkedin.com',
+    href:  'https://www.linkedin.com/company/kondorcorporate/?viewAsMember=true',
     Icon:  Linkedin,
   },
   {
     label: 'TikTok',
-    href:  'https://tiktok.com',
+    href:  'https://www.tiktok.com/@kondor.io',
     Icon:  TikTokIcon,
   },
 ]

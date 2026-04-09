@@ -12,7 +12,7 @@ const clients = [
   },
   {
     name: 'Club de campo La Federala',
-    logoSrc: '/portfolio/IconoLF.ico',
+    logoSrc: '/portfolio/IconoLF.png',
     logoAlt: 'Logo La Federal',
     tagline: 'Comercialización y control',
   },

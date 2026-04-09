@@ -15,9 +15,12 @@ const TEAM = [
   {
     id: 'K-01',
     name: 'Lucas',
-    role: 'Co-Fundador',
-    img: '/lucas.jpg',
-    bio: 'Ingeniero enfocado en producto y arquitectura. Impulsa decisiones técnicas que escalan sin perder velocidad.',
+    role: 'CEO & Co-Fundador',
+    img: '/lucas4.jpg',
+    // Encuadre: subir el foco para que el rostro no quede bajo el degradé inferior.
+    photoClassName: 'object-[center_18%] -translate-y-[15%] group-hover:-translate-y-[6%]',
+    avatarClassName: 'object-[center_28%] scale-98',
+    bio: 'Define la estrategia y alinea prioridades de negocio con la capacidad de ejecución del equipo',
     socials: [
       { kind: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/legorburulucas/' },
     ],
@@ -25,7 +28,7 @@ const TEAM = [
   {
     id: 'K-02',
     name: 'Joaquín',
-    role: 'Co-Fundador',
+    role: 'COO & Co-Fundador',
     img: '/joaco.jfif',
     bio: 'Combina visión de negocio y ejecución. Convierte ideas ambiciosas en entregables concretos.',
     socials: [
@@ -35,8 +38,8 @@ const TEAM = [
   {
     id: 'K-03',
     name: 'Nicolás',
-    role: 'Co-Fundador',
-    img: '/Nico.jfif',
+    role: 'CTO & Co-Fundador',
+    img: '/nicolas.png',
     bio: 'Apasionado por la calidad y la experiencia. Diseña flujos que la gente realmente usa.',
     socials: [
       { kind: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/nicolas-agustin-perez-441335272/' },
@@ -45,9 +48,9 @@ const TEAM = [
   {
     id: 'K-04',
     name: 'Santiago',
-    role: 'Co-Fundador',
+    role: 'CMO & Co-Fundador',
     img: '/santi.jfif',
-    bio: 'Operación y crecimiento. Asegura que cada sprint deje valor medible en producción.',
+    bio: 'Operación y crecimiento. Hace que el mercado entienda el valor en segundos',
     socials: [
       { kind: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/santiago-talavera/' },
     ],
@@ -121,7 +124,7 @@ export default function TeamSection() {
           viewport={{ once: true, margin: '-60px' }}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5"
         >
-          {TEAM.map(({ id, name, role, img }) => (
+          {TEAM.map(({ id, name, role, img, photoClassName }) => (
             <motion.div
               key={id}
               variants={cardVariants}
@@ -144,7 +147,7 @@ export default function TeamSection() {
                 <img
                   src={img}
                   alt=""
-                  className="w-full h-full object-cover object-top grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-out"
+                  className={`w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-out ${photoClassName ?? 'object-top'}`}
                 />
               </button>
 
@@ -216,7 +219,11 @@ export default function TeamSection() {
               <div className="p-5 pt-6">
                 <div className="flex gap-4 mb-4">
                   <div className="shrink-0 w-16 h-16 rounded-xl overflow-hidden border border-white/10 ring-1 ring-brand-accent/20">
-                    <img src={member.img} alt="" className="w-full h-full object-cover object-top" />
+                    <img
+                      src={member.img}
+                      alt=""
+                      className={`w-full h-full object-cover ${member.avatarClassName ?? member.photoClassName ?? 'object-top'}`}
+                    />
                   </div>
                   <div className="min-w-0 pt-0.5">
                     <p id="team-modal-title" className="text-lg font-black text-white tracking-tight">

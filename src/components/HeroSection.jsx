@@ -72,7 +72,6 @@ export default function HeroSection() {
               style={{ fontSize: 'clamp(1.5rem, 2.6vw, 2.8rem)' }}
             >
               Evolucion Tecnologica real
-              <br />
               construida con
               <br />
               <span className="text-brand-accent [text-shadow:0_0_56px_rgba(237,73,47,0.55)]">
