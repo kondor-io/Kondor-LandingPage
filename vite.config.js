@@ -30,12 +30,6 @@ function patchPostprocessingSSR() {
 
 export default defineConfig({
   plugins: [react(), patchPostprocessingSSR()],
-  build: {
-    // Target Chrome 72+ (react-snap uses Puppeteer with Chrome 72).
-    // Compiles optional chaining (?.) and nullish coalescing (??) to
-    // equivalent ES5 expressions so react-snap can pre-render the page.
-    target: ['chrome72', 'firefox68', 'safari13', 'edge79'],
-  },
   optimizeDeps: {
     esbuildOptions: {
       plugins: [
