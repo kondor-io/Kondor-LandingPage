@@ -42,8 +42,7 @@ export default function CTASection({ onOpenContactForm }) {
           className="text-3xl lg:text-5xl xl:text-6xl font-black text-white leading-tight tracking-tight mb-6 text-balance"
         >
           Construyamos el sistema que 
-          <br />
-          tu organizacion <span className="text-brand-accent">necesita</span>
+          tu organización <span className="text-brand-accent">necesita</span>
         </motion.h2>
 
         <motion.p
@@ -53,8 +52,8 @@ export default function CTASection({ onOpenContactForm }) {
           transition={{ delay: 0.25, duration: 0.6 }}
           className="text-white/60 text-base lg:text-lg leading-relaxed max-w-xl mx-auto mb-10"
         >
-          En Kondor diseñamos y construimos sistemas con criterio de ingenieria, foco operativo
-          y vision a largo plazo. Conversemos sobre lo que hoy necesita tu empresa para crecer mejor
+          En Kondor diseñamos y construimos sistemas con criterio de ingeniería, foco operativo
+          y visión a largo plazo. Conversemos sobre lo que hoy necesita tu empresa para crecer mejor
         </motion.p>
 
         <motion.div

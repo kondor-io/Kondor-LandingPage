@@ -71,11 +71,10 @@ export default function HeroSection() {
               className="font-black text-white leading-[1.05] tracking-tight drop-shadow-sm"
               style={{ fontSize: 'clamp(1.5rem, 2.6vw, 2.8rem)' }}
             >
-              Evolucion Tecnologica real
-              construida con
+              Evolución tecnológica real, construida con
               <br />
               <span className="text-brand-accent [text-shadow:0_0_56px_rgba(237,73,47,0.55)]">
-                ingenieria
+                ingeniería
               </span>
             </motion.h1>
 
@@ -108,7 +107,7 @@ export default function HeroSection() {
                   className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/18 to-transparent skew-x-12 animate-btn-shimmer"
                   aria-hidden
                 />
-                <span>Solicitar conversacion</span>
+                <span>Solicitar conversación</span>
                 <ArrowRight size={16} className="shrink-0" />
               </motion.a>
 
@@ -129,9 +128,9 @@ export default function HeroSection() {
               className="flex items-center gap-8 pt-4 border-t border-white/10"
             >
               {[
-                { value: '3+',   label: 'Productos en producción' },
+                { value: '3+',   label: 'Productos en desarrollo' },
                 { value: '100%', label: 'Ingeniería propia' },
-                { value: '4',    label: 'Cofundadores' },
+                { value: '4',    label: 'Co-fundadores' },
               ].map(({ value, label }) => (
                 <div key={label} className="flex flex-col gap-0.5">
                   <span className="text-xl font-black text-white">{value}</span>

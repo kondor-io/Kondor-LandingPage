@@ -114,7 +114,7 @@ export default function ContactFormModal({ open, onClose }) {
 
     if (payloadHash === lastSubmittedHash) {
       setSubmitStatus('error')
-      setSubmitMessage('Ya recibimos este mensaje. Si deseas reenviar, cambia algún campo.')
+      setSubmitMessage('Ya recibimos este mensaje. Si querés reenviar, cambiá algún campo.')
       return
     }
 
@@ -157,7 +157,7 @@ export default function ContactFormModal({ open, onClose }) {
       setView('success')
     } catch (error) {
       setSubmitStatus('error')
-      setSubmitMessage(error?.message || 'No pudimos enviar el mensaje. Intenta nuevamente en unos minutos.')
+      setSubmitMessage(error?.message || 'No pudimos enviar el mensaje. Intentá nuevamente en unos minutos.')
     } finally {
       setIsSubmitting(false)
     }
@@ -194,7 +194,7 @@ export default function ContactFormModal({ open, onClose }) {
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-accent">Conversemos</p>
                   <h3 className="mt-2 text-2xl font-black tracking-tight text-white sm:text-3xl">
-                    Cuéntanos qué quieres construir
+                    Cuéntanos qué querés construir
                   </h3>
                   <p className="mt-2 text-sm text-white/55">
                     Te respondemos por correo y coordinamos una conversación breve.

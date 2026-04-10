@@ -87,7 +87,7 @@ export default function Footer() {
                 className="h-8 w-auto max-w-[9.5rem] object-contain object-left opacity-95"
               />
               <p className="text-sm text-white/50 leading-relaxed max-w-xs">
-                Software, sistemas e ingenieria aplicada para organizaciones que quieren operar mejor
+                Software, sistemas e ingeniería aplicada para organizaciones que quieren operar mejor
               </p>
 
               {/* Email */}

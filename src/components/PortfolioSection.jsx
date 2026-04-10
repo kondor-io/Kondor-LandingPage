@@ -20,23 +20,17 @@ const clients = [
     name: 'Club For Ever',
     logoSrc: '/portfolio/forever.png',
     logoAlt: 'Logo For Ever',
-    tagline: 'Pagos y gestion',
+    tagline: 'Pagos y gestión',
   },
 ]
 
 const labProjects = [
   {
     Icon: Plane,
-    name: 'App de viajes',
-    status: 'En desarrollo',
+    name: 'TakeOff - Planificar tu viaje ya no sera un problema',
+    status: 'PROXIMAMENTE',
     statusClass: 'text-sky-200/95 bg-sky-500/12 border-sky-400/18',
-  },
-  {
-    Icon: Sparkles,
-    name: 'Exploración interna',
-    status: 'Interno',
-    statusClass: 'text-white/70 bg-white/[0.06] border-white/12',
-  },
+  }
 ]
 
 /* ── Motion helpers ───────────────────────────────────── */
@@ -73,12 +67,13 @@ function ClientCard({ name, logoSrc, logoAlt, tagline, isCenter }) {
   return (
     <article
       className={`
-        relative flex flex-col items-center justify-center min-h-[13rem]
+        relative flex flex-col items-center justify-center min-h-[15rem] lg:min-h-[13rem]
         overflow-hidden rounded-2xl border select-none
-        transition-all duration-500
+        transition-all duration-500 max-lg:transition-[opacity,background-color,border-color,box-shadow]
         ${isCenter
-          ? 'border-brand-accent/55 bg-brand-accent/[0.10] shadow-[0_0_80px_-8px_rgba(237,73,47,0.65)] scale-[1.04] z-10'
-          : 'border-white/[0.04] bg-white/[0.025] opacity-35 scale-[0.96]'
+          ? `border-brand-accent/55 bg-brand-accent/[0.10] max-lg:scale-100 max-lg:z-0 max-lg:shadow-[0_0_28px_-14px_rgba(237,73,47,0.4)]
+            lg:scale-[1.04] lg:z-10 lg:shadow-[0_0_80px_-8px_rgba(237,73,47,0.65)]`
+          : `border-white/[0.04] bg-white/[0.025] opacity-35 max-lg:scale-100 max-lg:z-0 lg:scale-[0.96]`
         }
       `}
     >
@@ -102,13 +97,15 @@ function ClientCard({ name, logoSrc, logoAlt, tagline, isCenter }) {
       />
 
       {/* Content */}
-      <div className="relative flex w-full flex-col items-center justify-center gap-3 px-6 py-8">
-        <div className="flex h-24 w-full max-w-[14rem] items-center justify-center">
+      <div className="relative flex w-full flex-col items-center justify-center gap-3 px-5 py-9 max-lg:px-6 max-lg:py-10 lg:px-6 lg:py-8">
+        <div className="flex h-28 w-full max-w-[16rem] items-center justify-center lg:h-24 lg:max-w-[14rem]">
           <img
             src={logoSrc}
             alt={logoAlt}
-            className={`max-h-full w-full max-w-[12rem] object-contain transition-all duration-500 ${
-              isCenter ? 'opacity-100 grayscale-0 scale-[1.06]' : 'opacity-55 grayscale'
+            className={`max-h-full w-full max-w-[13rem] object-contain duration-500 lg:transition-all max-lg:transition-[opacity,filter,transform] lg:max-w-[12rem] ${
+              isCenter
+                ? 'opacity-100 grayscale-0 scale-100 lg:scale-[1.06]'
+                : 'opacity-55 grayscale'
             }`}
             loading="lazy"
             decoding="async"
@@ -121,7 +118,7 @@ function ClientCard({ name, logoSrc, logoAlt, tagline, isCenter }) {
           {tagline}
         </p>
 
-        <p className={`text-center text-sm font-semibold tracking-tight transition-all duration-500 ${
+        <p className={`text-center text-[15px] font-semibold tracking-tight transition-all duration-500 lg:text-sm ${
           isCenter ? 'text-white opacity-100' : 'text-white/35 opacity-60'
         }`}>
           {name}
@@ -143,22 +140,33 @@ function ClientCard({ name, logoSrc, logoAlt, tagline, isCenter }) {
 /* ── Infinite sliding carousel ────────────────────────── */
 function ClientsCarousel() {
   const containerRef = useRef(null)
-  const [stepPx, setStepPx]    = useState(0)     // cardWidth + GAP
-  const [baseIdx, setBaseIdx]  = useState(INIT_BASE)
-  const [sliding, setSliding]  = useState(false)
+  const [stepPx, setStepPx]     = useState(0) // cardWidth + GAP
+  const [baseIdx, setBaseIdx]   = useState(INIT_BASE)
+  const [sliding, setSliding]   = useState(false)
+  const [multiView, setMultiView] = useState(true) // lg+: 3 visibles; móvil: 1
 
-  /* Measure one step = cardWidth + gap */
+  /* Measure: 3 tarjetas en lg+, 1 ancho completo en móvil */
   useLayoutEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
     const measure = () => {
-      if (!containerRef.current) return
-      const w        = containerRef.current.clientWidth
-      const cardW    = (w - GAP * (3 - 1)) / 3   // 3 cards visible, 2 gaps
+      const w = el.clientWidth
+      const multi = typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
+      setMultiView(multi)
+      const cardW = multi ? (w - GAP * (3 - 1)) / 3 : w
       setStepPx(cardW + GAP)
     }
+
     measure()
     const ro = new ResizeObserver(measure)
-    if (containerRef.current) ro.observe(containerRef.current)
-    return () => ro.disconnect()
+    ro.observe(el)
+    const mq = window.matchMedia('(min-width: 1024px)')
+    mq.addEventListener('change', measure)
+    return () => {
+      ro.disconnect()
+      mq.removeEventListener('change', measure)
+    }
   }, [])
 
   /* Auto-advance every INTERVAL_MS */
@@ -189,15 +197,16 @@ function ClientsCarousel() {
   const highlightSlot = sliding ? CENTER + 1 : CENTER
 
   const cardW = stepPx ? stepPx - GAP : 0
+  /* Desktop: -1 step alinea slots 1–3; móvil (1 visible): -2 steps alinea el slot central (índice 2) */
+  const trackOffset = stepPx ? (multiView ? stepPx : 2 * stepPx) : 0
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden py-16 -my-16">
+    <div ref={containerRef} className="relative overflow-hidden py-10 -my-10 lg:py-16 lg:-my-16">
       <div
         style={{
           display:    'flex',
           gap:        `${GAP}px`,
-          /* Shift the track left by 1 step so slot 0 is hidden off-screen left */
-          marginLeft: stepPx ? `-${stepPx}px` : 0,
+          marginLeft: stepPx ? `-${trackOffset}px` : 0,
           /* During slide: animate left by 1 more step */
           transform:  `translateX(${sliding && stepPx ? -stepPx : 0}px)`,
           transition: sliding
@@ -209,7 +218,7 @@ function ClientsCarousel() {
         {cards.map((card, i) => (
           <div
             key={card.absoluteIdx}
-            style={{ flexShrink: 0, width: cardW || '33.333%' }}
+            style={{ flexShrink: 0, width: cardW || (multiView ? '33.333%' : '100%') }}
           >
             <ClientCard {...card} isCenter={i === highlightSlot} />
           </div>

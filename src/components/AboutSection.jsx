@@ -56,7 +56,7 @@ export default function AboutSection() {
           <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight text-balance leading-tight">
             Construimos con criterio,
             <br className="hidden md:block" />
-            <span className="text-brand-accent"> no por improvisacion.</span>
+            <span className="text-brand-accent"> no por improvisación.</span>
           </h2>
         </motion.div>
 
