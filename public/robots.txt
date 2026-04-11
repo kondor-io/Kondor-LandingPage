@@ -1,6 +1,10 @@
 User-agent: *
 Allow: /
 
+# Imágenes del sitio (favicon / logo) — debe poder rastrear Googlebot-Image
+User-agent: Googlebot-Image
+Allow: /
+
 # AI Crawlers — permitir indexación para AI search
 User-agent: GPTBot
 Allow: /
